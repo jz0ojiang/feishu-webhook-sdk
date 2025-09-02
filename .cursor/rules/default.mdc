@@ -1,0 +1,63 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+
+# Cursor Rules for feishu-webhook-sdk
+
+You are collaborating on an open-source TypeScript SDK project: **feishu-webhook-sdk**.  
+The goal: provide a lightweight, strongly-typed, zero-dependency SDK to send messages to Feishu (Lark) **custom bots (incoming webhooks)**.  
+It should feel as simple as `const bot = new FeishuBot(webhook, secret?)` → `bot.sendText("hello")`.
+
+## General Guidelines
+- Language: **TypeScript (strict)**, target Node 18+ and modern runtimes (Bun, Deno, Cloudflare Workers).
+- Keep **zero dependencies** unless absolutely necessary (use Web Crypto & native fetch).
+- Ensure **ESM + CJS + d.ts** outputs (using `tsup`).
+- Follow semantic versioning; keep core API stable.
+- Code must be readable, documented, and minimal.
+
+## Project Structure
+- `src/` contains all source code.
+  - `bot.ts`: core FeishuBot class (signature, retry, send).
+  - `types.ts`: message type definitions (`FeishuPayload` etc).
+  - `utils.ts`: crypto and helper functions.
+  - `shortcuts.ts`: helper methods like `sendText`, `sendCard`.
+  - `builders/`: optional builder pattern for structured message creation.
+  - `templates/`: optional prebuilt message templates (success/info/warning cards).
+- `examples/`: runnable demo scripts (send-text.ts, send-post.ts, send-card.ts).
+- `test/`: vitest unit tests.
+
+## API Design
+- Constructor: `new FeishuBot(webhookUrl: string, secret?: string, opts?: BotOptions)`
+- Core methods:
+  - `send(payload: FeishuPayload): Promise<any>`
+  - `sendText(text: string)`
+  - `sendPostZh({ title, lines })`
+  - `sendCard(card: Record<string, any>)`
+- Provide **thin passthrough layer** (send raw payload) + **optional builders/templates**.
+- Errors should be descriptive and include Feishu response body if available.
+- Support simple retry with exponential backoff for network/429/5xx errors.
+
+## Style & Quality
+- Use async/await, avoid callbacks.
+- Strict TypeScript typing (`noImplicitAny`, `strictNullChecks`).
+- Comments should link back to relevant Feishu docs (custom bot, message formats).
+- Unit tests: cover text/post/card messages.
+- Examples must be minimal, runnable after `pnpm build`.
+
+## Documentation
+- `README.md` must include:
+  - Install instructions (`pnpm add feishu-webhook-sdk`)
+  - Quick start example (`sendText`)
+  - Advanced usage (post, card, builder)
+  - Link to Feishu official docs for message payloads
+- Inline JSDoc for all public methods.
+
+## Cursor Behavior
+- When asked to generate code, **respect this architecture**.
+- Prefer improving existing files rather than dumping new ones.
+- Never introduce heavy dependencies (axios, crypto-js, etc).
+- Keep commits atomic: one feature/fix per change.
+- For `.cursorignore`: only include `src/`, `test/`, `examples/`.
+

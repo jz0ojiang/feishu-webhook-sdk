@@ -1,0 +1,44 @@
+{
+  "name": "feishu-webhook-sdk",
+  "version": "0.1.0",
+  "description": "Lightweight TypeScript SDK for Feishu custom bot (webhook).",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "prepublishOnly": "pnpm build",
+    "example:send-text": "pnpm build && node examples/send-text.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jz0ojiang/feishu-webhook-sdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jz0ojiang/feishu-webhook-sdk/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": ["feishu", "webhook", "sdk", "typescript"],
+  "author": "jz0ojiang",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  }
+}
