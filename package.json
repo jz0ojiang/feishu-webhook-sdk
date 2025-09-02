@@ -1,6 +1,6 @@
 {
   "name": "feishu-webhook-sdk",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Lightweight TypeScript SDK for Feishu custom bot (webhook).",
   "type": "module",
   "main": "dist/index.cjs",
@@ -8,7 +8,7 @@
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.ms",
+      "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     }
   },
